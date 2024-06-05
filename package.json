@@ -12,9 +12,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@globus/sdk": "^3.4.0",
+    "@globus/types": "^0.0.7",
     "bootstrap": "^5.2.3",
+    "dompurify": "^3.1.5",
+    "html-react-parser": "^5.1.10",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "simple-oauth2": "^5.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",

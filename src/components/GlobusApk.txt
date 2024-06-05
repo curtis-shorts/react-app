@@ -1,0 +1,63 @@
+/*
+function getRedirectUri() {
+  // If the `redirect_uri` is specified in the `static.json`, use it.
+  if (attributes.globus.application?.redirect_uri) {
+    return attributes.globus.application.redirect_uri;
+  }
+  // If this is a static-managed deployment, use the `base_url` from the `static.json`.
+  if (STATIC._static.host?.base_url) {
+    return `${STATIC._static.host?.base_url}/authenticate`;
+  }
+  //If all else fails, try to construct the redirect URI from the current location.
+    //The fallback here is mostly to account for SSR.
+    //@todo This could likely be configured to get `basePath` and host information for the Next.js configuration or environment.
+  const baseURL = globalThis.location
+    ? `${globalThis.location.protocol}//${globalThis.location.host}`
+    : "";
+  return `${baseURL}/authenticate`;
+}
+
+export function getEnvironment() {
+  return attributes.globus.environment || null;
+}
+
+const env = getEnvironment();
+if (env) {
+  globalThis.GLOBUS_SDK_ENVIRONMENT = env;
+}
+
+// Globus API is built on the OAuth 2.0 framework: https://datatracker.ietf.org/doc/html/rfc6749
+// Recommended to use an off-the-shelf OAuth2 library to interact with the Globus API
+
+// The URI the user will be redirected back to from the authorization response (must be pre-registered for the client)
+// URI = the base URL + the redirect once launched
+const redirect = "https://curtis-shorts.github.io/react-app/authenticate";
+// Client UUID
+const client_id = "f00a43c4-0cea-486c-b667-2ba188d23032";
+// Collection UUID
+const collection = "e1362c76-1715-11ef-834d-57b5c7e2fa2b";
+// A list of scopes the app is requesting access to ()include offline_access if refresh tokens are needed
+const scopes = "urn:globus:auth:scope:transfer.api.globus.org:all";
+
+
+// Dev guide: https://docs.globus.org/api/auth/developer-guide/
+// Authorization page: https://auth.globus.org/v2/oauth2/authorize
+// Example request:
+/* https://auth.globus.org/v2/oauth2/authorize?
+ **  client_id=69ba5e62-7285-45db-952d-e0bb73b5eac7
+ **  &scope=urn%3A
+            globus%3A
+            auth%3A
+            scope%3A
+            transfer.api.globus.org%3A
+            all%20urn%3A
+            globus%3A
+            auth%3A
+            scope%3A
+            auth.globus.org%3A
+            view_identities%20offline_access
+ **  &response_type=code
+ **  &redirect_uri=https%3A
+            %2F%2Fwww.example.org%2Fmy_app%2Flogin
+ **  &state=g6l14b2xlgx4dtce8d2ja714i
+ */
