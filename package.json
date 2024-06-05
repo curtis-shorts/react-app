@@ -6,7 +6,7 @@
   "homepage": "https://curtis-shorts.github.io/react-app",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d src",
+    "deploy": "gh-pages",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
